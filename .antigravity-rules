@@ -1,0 +1,29 @@
+# Governance & Architectural Standards: AegisMCP
+
+## 1. Technology Stack
+- **Framework**: Next.js 15 (App Router)
+- **UI Library**: React 19
+- **Language**: TypeScript (Strict Mode enabled)
+- **Styling**: Tailwind CSS (Utility-first)
+- **Components**: Radix UI (Primitives) + Lucide React (Icons)
+- **State Management**: Zustand (Client Global State)
+- **Backend/DB**: Supabase (Auth & PostgreSQL)
+- **Visualization**: ReactFlow or D3.js (Contextual Memory Graph)
+
+## 2. Modular Decomposition & Code Quality
+- **File Size Limit**: No functionality module, component, or utility shall exceed 300 lines of code.
+- **Atomicity**: Complex logic must be extracted into pure functional helper modules.
+- **Type Safety**: No use of `any`. All props and state must be strictly typed. Zod schemas required for all form/API validation.
+
+## 3. Architecture & Patterns
+- **Data Fetching**: Prefer React Server Components (RSC) for initial data fetching. Use Server Actions for mutations.
+- **Client State**: Use Zustand for global client-side state (e.g., UI preferences, active graph nodes).
+- **Error Handling**: 
+  - Wrap all async operations in strict `try/catch` blocks.
+  - Return standardized error objects `{ success: boolean, data?: T, error?: string }`.
+  - Implement React Error Boundaries for UI resilience.
+- **Stateless Execution**: Agent tasks (future extensibility) must run in stateless, isolated processes.
+
+## 4. Verification & Testing
+- **Gating**: Code changes must pass linting (`eslint`), type checking (`tsc`), and unit tests (if applicable) before confirmation.
+- **Browser Validation**: Critical flows (Auth, Registration, Graph View) must be verifiable via the Browser Subagent.
